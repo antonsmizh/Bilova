@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Billova — Peer-to-peer mentoring</title>
+  <meta name="description" content="Billova — платформа peer-to-peer mentoring. Посмотри менторов, оставь заявку, свяжись через Telegram." />
+  <style>
+    
+    :root{
+      --bg:#D4D4D4;
+      --primary:#172F47;
+      --primary-2:#274569;
+      --muted:#585858;
+      --card:#ffffff;
+      --glass: rgba(255,255,255,0.06);
+      --radius:14px;
+      --maxw:1100px;
+      --accent: #274569;
+      --shadow: 0 8px 24px rgba(23,47,71,0.12);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;background:linear-gradient(180deg,var(--bg),#EFEFEF);color:var(--primary);}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--maxw);margin:0 auto;padding:28px}
+
+   
+    header{backdrop-filter: blur(6px);background:linear-gradient(180deg, rgba(23,47,71,0.06), rgba(39,69,105,0.02));border-radius:12px;padding:14px;margin-bottom:22px;box-shadow:var(--shadow)}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:52px;height:52px;background:linear-gradient(135deg,var(--primary),var(--primary-2));border-radius:12px;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:18px;box-shadow:0 6px 18px rgba(23,47,71,0.18)}
+    .title{font-weight:700;font-size:18px}
+    nav ul{display:flex;gap:12px;list-style:none;padding:0;margin:0}
+    nav a.button{padding:10px 14px;border-radius:10px;background:transparent;font-weight:600;color:var(--primary-2)}
+    nav a.button:hover{background:var(--glass)}
+    .cta{padding:10px 14px;border-radius:10px;background:var(--primary);color:#fff;font-weight:700}
+
+   
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;margin-bottom:28px}
+    .hero-card{background:var(--card);border-radius:18px;padding:28px;box-shadow:var(--shadow)}
+    .hero h1{margin:0 0 8px 0;font-size:28px;color:var(--primary)}
+    .sub{color:var(--muted);margin-bottom:16px}
+    .hero-buttons{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{padding:12px 16px;border-radius:12px;font-weight:700;cursor:pointer}
+    .btn.primary{background:var(--primary);color:white}
+    .btn.ghost{background:transparent;border:1px solid rgba(23,47,71,0.06);color:var(--primary-2)}
+
+    
+    .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+    .card{background:linear-gradient(180deg,white, #FBFBFB);border-radius:12px;padding:14px;box-shadow:0 6px 16px rgba(39,69,105,0.06);display:flex;gap:12px;align-items:center}
+    .avatar{width:72px;height:72px;border-radius:12px;background:linear-gradient(180deg,var(--primary-2),var(--primary));color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px}
+    .meta{flex:1}
+    .meta h4{margin:0 0 6px 0}
+    .meta p{margin:0;color:var(--muted);font-size:13px}
+    .card .actions{display:flex;gap:8px}
+    .small{padding:8px 10px;border-radius:10px;font-weight:700;font-size:13px}
+    .small.tg{background:#00A1D6;color:white}
+    .small.cv{background:var(--primary-2);color:white}
+
+    
+    .apply{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+    .apply .note{color:var(--muted)}
+
+    
+    footer{margin-top:28px;padding:18px;border-radius:12px;background:linear-gradient(180deg,rgba(23,47,71,0.03),rgba(39,69,105,0.02));display:flex;justify-content:space-between;align-items:center}
+
+    
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.35);z-index:40}
+    .modal.show{display:flex}
+    .modal .box{width:calc(100% - 48px);max-width:720px;background:white;border-radius:12px;padding:20px}
+
+    
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr;}
+      .team-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:560px){
+      nav ul{display:none}
+      .team-grid{grid-template-columns:1fr}
+      .hero h1{font-size:22px}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="nav">
+        <div class="brand">
+          <div class="logo">B</div>
+          <div>
+            <div class="title">Billova</div>
+            <div style="font-size:12px;color:var(--muted)">peer-to-peer mentoring</div>
+          </div>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="#about" class="button" data-nav>About</a></li>
+            <li><a href="#team" class="button" data-nav>Our Team</a></li>
+            <li><a href="#apply" class="button" data-nav>Apply</a></li>
+            <li><a href="#contact" class="button" data-nav>Contact</a></li>
+          </ul>
+        </nav>
+        <div>
+          <a class="cta" id="become">Become a Mentor</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero-card hero">
+        <div>
+          <h1>Billova — менторская платформа студентов</h1>
+          <p class="sub">Найди ментора, познакомься с их портфолио и свяжись напрямую через Telegram. Также можешь подать заявку на роль ментора.</p>
+          <div class="hero-buttons">
+            <a class="btn primary" href="#team" data-nav>Посмотреть команду</a>
+            <a class="btn ghost" id="applyBtn">Оставить заявку</a>
+            <a class="btn ghost" id="howBtn">Как это работает</a>
+          </div>
+
+          <div style="margin-top:18px;color:var(--muted);font-size:14px">Срок разработки: <strong>3–5 дней</strong> (MVP). Нужны логотип и форма на Google Forms для приема заявок.</div>
+        </div>
+
+        <aside style="width:100%">
+          <div style="background:linear-gradient(180deg,var(--primary),var(--primary-2));color:white;border-radius:12px;padding:18px;min-height:160px;display:flex;flex-direction:column;justify-content:space-between">
+            <div>
+              <div style="font-size:14px;font-weight:700">Текущая версия</div>
+              <div style="font-size:12px;opacity:0.9">Billova • MVP</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:12px;color:rgba(255,255,255,0.9)">Palette</div>
+              <div style="margin-top:8px;display:flex;gap:8px;justify-content:flex-end">
+                <div style="width:36px;height:36px;border-radius:8px;background:#172F47"></div>
+                <div style="width:36px;height:36px;border-radius:8px;background:#274569"></div>
+                <div style="width:36px;height:36px;border-radius:8px;background:#585858"></div>
+                <div style="width:36px;height:36px;border-radius:8px;background:#D4D4D4;border:1px solid rgba(0,0,0,0.06)"></div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section id="about" class="hero-card" style="margin-bottom:18px">
+        <h2 style="margin-top:0">About</h2>
+        <p class="sub">Billova — это простая и надежная площадка для соединения студентов с опытными менторами. Основные принципы — прозрачность профилей, быстрый контакт и минимум лишних функций. Главная задача сайта — дать возможность пользователю быстро просмотреть профиль ментора и написать ему в Telegram.</p>
+        <ul style="color:var(--muted)">
+          <li>Карточки менторов с портфолио и контактами</li>
+          <li>Форма подачи заявок (Google Forms)</li>
+          <li>Адаптивный дизайн — работает на телефоне и десктопе</li>
+        </ul>
+      </section>
+
+      <section id="team" class="hero-card">
+        <h2 style="margin-top:0">Our Team</h2>
+        <p class="sub">Ниже — примеры менторов. По клику откроется профиль с CV и ссылкой в Telegram.</p>
+
+        <div class="team-grid" id="mentors">
+          
+          <div class="card" data-id="1">
+            <div class="avatar">АД</div>
+            <div class="meta">
+              <h4>Асыл Д.</h4>
+              <p>Web-разработка · React · Node.js · 4 года опыта</p>
+            </div>
+            <div class="actions">
+              <button class="small cv" data-profile="1">Профиль</button>
+              <a class="small tg" href="https://t.me/example1" target="_blank">Telegram</a>
+            </div>
+          </div>
+
+          
+          <div class="card" data-id="2">
+            <div class="avatar">МР</div>
+            <div class="meta">
+              <h4>Меруерт Р.</h4>
+              <p>Дизайн · UX/UI · Портфолио и кейсы</p>
+            </div>
+            <div class="actions">
+              <button class="small cv" data-profile="2">Профиль</button>
+              <a class="small tg" href="https://t.me/example2" target="_blank">Telegram</a>
+            </div>
+          </div>
+
+          
+          <div class="card" data-id="3">
+            <div class="avatar">ЖК</div>
+            <div class="meta">
+              <h4>Жан К.</h4>
+              <p>Data Science · Python · ML</p>
+            </div>
+            <div class="actions">
+              <button class="small cv" data-profile="3">Профиль</button>
+              <a class="small tg" href="https://t.me/example3" target="_blank">Telegram</a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <section id="apply" class="hero-card" style="margin-top:18px">
+        <h2 style="margin-top:0">Apply</h2>
+        <div class="apply">
+          <div>
+            <div style="font-weight:700">Хочешь стать ментором?</div>
+            <div class="note">Оставь заявку — ссылка ведёт на Google Form. Пример: https://forms.google.com/your-form</div>
+          </div>
+          <div style="margin-left:auto;display:flex;gap:10px">
+            <a class="btn primary" id="applyMentor">Apply as Mentor</a>
+            <a class="btn ghost" id="applyStudent">Apply as Student</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="hero-card" style="margin-top:18px">
+        <h2 style="margin-top:0">Contact</h2>
+        <p class="sub">Email: <strong>hello@billova.example</strong></p>
+        <p class="sub">Telegram: <a href="https://t.me/example_project" target="_blank">@example_project</a></p>
+        <p style="color:var(--muted)">Если нужно — подключим прием заявок напрямую в админку. Сейчас MVP использует Google Forms для простоты.</p>
+      </section>
+
+    </main>
+
+    <footer>
+      <div>© Billova — peer-to-peer mentoring</div>
+      <div style="color:var(--muted);font-size:13px">Made with ❤ • Palette: #172F47 #274569 #585858 #D4D4D4</div>
+    </footer>
+  </div>
+
+  
+  <div class="modal" id="modal">
+    <div class="box">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3 id="modalName">Profile</h3>
+        <button id="closeModal" style="border-radius:8px;padding:8px 10px;border:none;background:var(--primary);color:white;cursor:pointer">Close</button>
+      </div>
+      <div id="modalBody" style="margin-top:12px;color:var(--muted)"></div>
+      <div style="margin-top:18px;display:flex;gap:10px">
+        <a id="modalCV" class="btn ghost" target="_blank">Open CV</a>
+        <a id="modalTG" class="btn primary" target="_blank">Open Telegram</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    
+    document.querySelectorAll('[data-nav]').forEach(el=>{
+      el.addEventListener('click', e=>{
+        e.preventDefault();
+        const href = el.getAttribute('href') || el.dataset.href;
+        if(!href) return;
+        const id = href.replace('#','');
+        const target = document.getElementById(id);
+        if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+      })
+    })
+
+    
+    const mentorForm = 'https://forms.gle/REPLACE_WITH_YOUR_MENTOR_FORM';
+    const studentForm = 'https://forms.gle/REPLACE_WITH_YOUR_STUDENT_FORM';
+    document.getElementById('applyMentor').addEventListener('click', ()=> window.open(mentorForm,'_blank'));
+    document.getElementById('applyStudent').addEventListener('click', ()=> window.open(studentForm,'_blank'));
+    document.getElementById('applyBtn').addEventListener('click', ()=> window.open(studentForm,'_blank'));
+    document.getElementById('become').addEventListener('click', ()=> window.open(mentorForm,'_blank'));
+
+    
+    const profiles = {
+      1: {name:'Асыл Д.', desc:'Web-разработка, React, Node.js. 4 года опыта. Работал над стартапами и фриланс-проектами.', cv:'https://drive.google.com/file/d/REPLACE_CV_1/view', tg:'https://t.me/example1'},
+      2: {name:'Меруерт Р.', desc:'UX/UI дизайнер, портфолио с кейсами. Помогает студентам собрать портфолио и пройти собеседования.', cv:'https://drive.google.com/file/d/REPLACE_CV_2/view', tg:'https://t.me/example2'},
+      3: {name:'Жан К.', desc:'Data Science, Python, ML. Опыт в исследованиях и конкурсах по ML.', cv:'https://drive.google.com/file/d/REPLACE_CV_3/view', tg:'https://t.me/example3'}
+    };
+
+    document.querySelectorAll('[data-profile]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const id = btn.dataset.profile;
+        const p = profiles[id];
+        if(!p) return;
+        document.getElementById('modalName').innerText = p.name;
+        document.getElementById('modalBody').innerText = p.desc;
+        document.getElementById('modalCV').href = p.cv;
+        document.getElementById('modalTG').href = p.tg;
+        document.getElementById('modal').classList.add('show');
+      })
+    })
+    document.getElementById('closeModal').addEventListener('click', ()=> document.getElementById('modal').classList.remove('show'));
+    document.getElementById('modal').addEventListener('click', (e)=>{ if(e.target.id==='modal') document.getElementById('modal').classList.remove('show') })
+
+    
+    document.getElementById('howBtn').addEventListener('click', ()=>{
+      alert('Пользователь: просматривает команду, открывает профиль ментора и связывается через Telegram. Для подачи заявок используем Google Forms.');
+    })
+  </script>
+</body>
+</html>
