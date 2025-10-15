@@ -53,32 +53,48 @@
       .nav{flex-wrap:wrap;}
       .hero{align-items:center;text-align:center;}
     }
+    #language-switcher {
+  background-color: var(--primary-2);
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-weight: 700;
+  font-size: 15px;
+  height: 44px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+#language-switcher:hover {
+  background-color: var(--primary);
+  transform: translateY(-1px);
+}
   </style>
 </head>
 <body>
-  <header>
-    <div class="nav">
-      <div class="logo">
-        <div style="background:var(--primary);color:white;padding:6px 10px;border-radius:8px;font-weight:800;">B</div>
-        <div>Billova</div>
-      </div>
-      <div class="menu">
-        <a href="#about" data-i18n="menu.about">О проекте</a>
-        <a href="#team" data-i18n="menu.team">Команда</a>
-        <a href="#apply" data-i18n="menu.apply">Заявка</a>
-        <a href="#contact" data-i18n="menu.contact">Контакты</a>
-      </div>
-
-      <div style="display:flex;align-items:center;gap:10px;">
-        <select id="lang" style="padding:6px;border-radius:6px;border:1px solid var(--muted);font-weight:600;">
-          <option value="ru">RU</option>
-          <option value="en">EN</option>
-          <option value="kz">KZ</option>
-        </select>
-        <a class="cta" href="#apply" data-i18n="cta">Стать ментором</a>
-      </div>
+ <header>
+  <div class="nav">
+    <div class="logo">
+      <div style="background:var(--primary);color:white;padding:6px 10px;border-radius:8px;font-weight:800;">B</div>
+      <div>Billova</div>
     </div>
-  </header>
+    <div class="menu">
+      <a href="#about" data-i18n="about">О проекте</a>
+      <a href="#team" data-i18n="team">Команда</a>
+      <a href="#apply" data-i18n="apply">Заявка</a>
+      <a href="#contact" data-i18n="contact">Контакты</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <select id="language-switcher">
+        <option value="ru">RU</option>
+        <option value="en">EN</option>
+        <option value="kz">KZ</option>
+      </select>
+      <a class="cta" href="#apply" data-i18n="becomeMentor">Стать ментором</a>
+    </div>
+  </div>
+</header>
+
 
   <main>
     <section class="hero" id="home">
