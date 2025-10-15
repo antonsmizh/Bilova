@@ -57,20 +57,114 @@
 </head>
 <body>
   <header>
-    <div class="nav">
-      <div class="logo">
-        <div style="background:var(--primary);color:white;padding:6px 10px;border-radius:8px;font-weight:800;">B</div>
-        <div>Billova</div>
-      </div>
-      <div class="menu">
-        <a href="#about">About</a>
-        <a href="#team">Team</a>
-        <a href="#apply">Apply</a>
-        <a href="#contact">Contact</a>
-      </div>
-      <a class="cta" href="#apply">Become a Mentor</a>
+  <div class="nav">
+    <div class="logo">
+      <div style="background:var(--primary);color:white;padding:6px 10px;border-radius:8px;font-weight:800;">B</div>
+      <div>Billova</div>
     </div>
-  </header>
+    <div class="menu">
+      <a href="#about" data-i18n="menu.about">О проекте</a>
+      <a href="#team" data-i18n="menu.team">Команда</a>
+      <a href="#apply" data-i18n="menu.apply">Заявка</a>
+      <a href="#contact" data-i18n="menu.contact">Контакты</a>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:10px;">
+      <select id="lang" style="padding:6px;border-radius:6px;border:1px solid var(--muted);font-weight:600;">
+        <option value="ru">RU</option>
+        <option value="en">EN</option>
+        <option value="kz">KZ</option>
+      </select>
+      <a class="cta" href="#apply" data-i18n="cta">Стать ментором</a>
+    </div>
+  </div>
+</header>
+<script>
+const translations = {
+  ru: {
+    "menu.about": "О проекте",
+    "menu.team": "Команда",
+    "menu.apply": "Заявка",
+    "menu.contact": "Контакты",
+    "cta": "Стать ментором",
+    "hero.title": "Billova — менторская платформа студентов",
+    "hero.desc": "Найди ментора, познакомься с его портфолио и свяжись напрямую через Telegram. Также можно подать заявку, чтобы стать ментором.",
+    "hero.teamBtn": "Команда",
+    "hero.applyBtn": "Оставить заявку",
+    "about.title": "О проекте",
+    "about.text": "Billova — это простая и надёжная площадка для соединения студентов с опытными менторами.",
+    "team.title": "Наша команда",
+    "team.desc": "Выбери ментора и свяжись с ним напрямую.",
+    "apply.title": "Заявка",
+    "apply.desc": "Хочешь стать ментором? Заполни форму.",
+    "apply.mentor": "Заявка для ментора",
+    "apply.student": "Заявка для студента",
+    "contact.title": "Контакты",
+    "footer": "© Billova — peer-to-peer mentoring"
+  },
+  en: {
+    "menu.about": "About",
+    "menu.team": "Team",
+    "menu.apply": "Apply",
+    "menu.contact": "Contact",
+    "cta": "Become a Mentor",
+    "hero.title": "Billova — peer-to-peer mentoring platform",
+    "hero.desc": "Find a mentor, explore their portfolio and contact them directly via Telegram. You can also apply to become a mentor.",
+    "hero.teamBtn": "Team",
+    "hero.applyBtn": "Apply",
+    "about.title": "About",
+    "about.text": "Billova is a simple and reliable platform connecting students with experienced mentors.",
+    "team.title": "Our Team",
+    "team.desc": "Choose a mentor and contact them directly.",
+    "apply.title": "Apply",
+    "apply.desc": "Want to become a mentor? Fill out the form.",
+    "apply.mentor": "Apply as Mentor",
+    "apply.student": "Apply as Student",
+    "contact.title": "Contact",
+    "footer": "© Billova — peer-to-peer mentoring"
+  },
+  kz: {
+    "menu.about": "Жоба туралы",
+    "menu.team": "Команда",
+    "menu.apply": "Өтініш",
+    "menu.contact": "Байланыс",
+    "cta": "Ментор болу",
+    "hero.title": "Billova — студенттерге арналған менторинг платформасы",
+    "hero.desc": "Менторды тап, оның портфолиосымен танысып, Telegram арқылы тікелей байланыс орнат.",
+    "hero.teamBtn": "Команда",
+    "hero.applyBtn": "Өтініш қалдыру",
+    "about.title": "Жоба туралы",
+    "about.text": "Billova — студенттер мен тәжірибелі менторларды байланыстыратын қарапайым әрі сенімді платформа.",
+    "team.title": "Біздің команда",
+    "team.desc": "Менторды таңдап, тікелей хабарлас.",
+    "apply.title": "Өтініш",
+    "apply.desc": "Ментор болғың келе ме? Форманы толтыр.",
+    "apply.mentor": "Ментор ретінде өтініш",
+    "apply.student": "Студент ретінде өтініш",
+    "contact.title": "Байланыс",
+    "footer": "© Billova — peer-to-peer mentoring"
+  }
+};
+
+function setLanguage(lang) {
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.getAttribute("data-i18n");
+    if (translations[lang] && translations[lang][key]) {
+      el.textContent = translations[lang][key];
+    }
+  });
+  localStorage.setItem("lang", lang);
+}
+
+document.getElementById("lang").addEventListener("change", (e) => {
+  setLanguage(e.target.value);
+});
+
+const savedLang = localStorage.getItem("lang") || "ru";
+document.getElementById("lang").value = savedLang;
+setLanguage(savedLang);
+</script>
+
 
   <main>
     <section class="hero" id="home">
