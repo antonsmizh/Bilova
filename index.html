@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Billova — Peer-to-peer mentoring</title>
-  <meta name="description" content="Billova — платформа peer-to-peer mentoring. Посмотри менторов, оставь заявку, свяжись через Telegram." />
+  <meta name="description" content="Billova — платформа peer-to-peer mentoring." />
   <style>
     :root{
       --bg:#D4D4D4;
@@ -57,193 +57,162 @@
 </head>
 <body>
   <header>
-  <div class="nav">
-    <div class="logo">
-      <div style="background:var(--primary);color:white;padding:6px 10px;border-radius:8px;font-weight:800;">B</div>
-      <div>Billova</div>
+    <div class="nav">
+      <div class="logo">
+        <div style="background:var(--primary);color:white;padding:6px 10px;border-radius:8px;font-weight:800;">B</div>
+        <div>Billova</div>
+      </div>
+      <div class="menu">
+        <a href="#about" data-i18n="menu.about">О проекте</a>
+        <a href="#team" data-i18n="menu.team">Команда</a>
+        <a href="#apply" data-i18n="menu.apply">Заявка</a>
+        <a href="#contact" data-i18n="menu.contact">Контакты</a>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:10px;">
+        <select id="lang" style="padding:6px;border-radius:6px;border:1px solid var(--muted);font-weight:600;">
+          <option value="ru">RU</option>
+          <option value="en">EN</option>
+          <option value="kz">KZ</option>
+        </select>
+        <a class="cta" href="#apply" data-i18n="cta">Стать ментором</a>
+      </div>
     </div>
-    <div class="menu">
-      <a href="#about" data-i18n="menu.about">О проекте</a>
-      <a href="#team" data-i18n="menu.team">Команда</a>
-      <a href="#apply" data-i18n="menu.apply">Заявка</a>
-      <a href="#contact" data-i18n="menu.contact">Контакты</a>
-    </div>
-
-    <div style="display:flex;align-items:center;gap:10px;">
-      <select id="lang" style="padding:6px;border-radius:6px;border:1px solid var(--muted);font-weight:600;">
-        <option value="ru">RU</option>
-        <option value="en">EN</option>
-        <option value="kz">KZ</option>
-      </select>
-      <a class="cta" href="#apply" data-i18n="cta">Стать ментором</a>
-    </div>
-  </div>
-</header>
-<script>
-const translations = {
-  ru: {
-    "menu.about": "О проекте",
-    "menu.team": "Команда",
-    "menu.apply": "Заявка",
-    "menu.contact": "Контакты",
-    "cta": "Стать ментором",
-    "hero.title": "Billova — менторская платформа студентов",
-    "hero.desc": "Найди ментора, познакомься с его портфолио и свяжись напрямую через Telegram. Также можно подать заявку, чтобы стать ментором.",
-    "hero.teamBtn": "Команда",
-    "hero.applyBtn": "Оставить заявку",
-    "about.title": "О проекте",
-    "about.text": "Billova — это простая и надёжная площадка для соединения студентов с опытными менторами.",
-    "team.title": "Наша команда",
-    "team.desc": "Выбери ментора и свяжись с ним напрямую.",
-    "apply.title": "Заявка",
-    "apply.desc": "Хочешь стать ментором? Заполни форму.",
-    "apply.mentor": "Заявка для ментора",
-    "apply.student": "Заявка для студента",
-    "contact.title": "Контакты",
-    "footer": "© Billova — peer-to-peer mentoring"
-  },
-  en: {
-    "menu.about": "About",
-    "menu.team": "Team",
-    "menu.apply": "Apply",
-    "menu.contact": "Contact",
-    "cta": "Become a Mentor",
-    "hero.title": "Billova — peer-to-peer mentoring platform",
-    "hero.desc": "Find a mentor, explore their portfolio and contact them directly via Telegram. You can also apply to become a mentor.",
-    "hero.teamBtn": "Team",
-    "hero.applyBtn": "Apply",
-    "about.title": "About",
-    "about.text": "Billova is a simple and reliable platform connecting students with experienced mentors.",
-    "team.title": "Our Team",
-    "team.desc": "Choose a mentor and contact them directly.",
-    "apply.title": "Apply",
-    "apply.desc": "Want to become a mentor? Fill out the form.",
-    "apply.mentor": "Apply as Mentor",
-    "apply.student": "Apply as Student",
-    "contact.title": "Contact",
-    "footer": "© Billova — peer-to-peer mentoring"
-  },
-  kz: {
-    "menu.about": "Жоба туралы",
-    "menu.team": "Команда",
-    "menu.apply": "Өтініш",
-    "menu.contact": "Байланыс",
-    "cta": "Ментор болу",
-    "hero.title": "Billova — студенттерге арналған менторинг платформасы",
-    "hero.desc": "Менторды тап, оның портфолиосымен танысып, Telegram арқылы тікелей байланыс орнат.",
-    "hero.teamBtn": "Команда",
-    "hero.applyBtn": "Өтініш қалдыру",
-    "about.title": "Жоба туралы",
-    "about.text": "Billova — студенттер мен тәжірибелі менторларды байланыстыратын қарапайым әрі сенімді платформа.",
-    "team.title": "Біздің команда",
-    "team.desc": "Менторды таңдап, тікелей хабарлас.",
-    "apply.title": "Өтініш",
-    "apply.desc": "Ментор болғың келе ме? Форманы толтыр.",
-    "apply.mentor": "Ментор ретінде өтініш",
-    "apply.student": "Студент ретінде өтініш",
-    "contact.title": "Байланыс",
-    "footer": "© Billova — peer-to-peer mentoring"
-  }
-};
-
-function setLanguage(lang) {
-  document.querySelectorAll("[data-i18n]").forEach(el => {
-    const key = el.getAttribute("data-i18n");
-    if (translations[lang] && translations[lang][key]) {
-      el.textContent = translations[lang][key];
-    }
-  });
-  localStorage.setItem("lang", lang);
-}
-
-document.getElementById("lang").addEventListener("change", (e) => {
-  setLanguage(e.target.value);
-});
-
-const savedLang = localStorage.getItem("lang") || "ru";
-document.getElementById("lang").value = savedLang;
-setLanguage(savedLang);
-</script>
-
+  </header>
 
   <main>
     <section class="hero" id="home">
-      <h1>Billova — менторская платформа студентов</h1>
-      <p>Найди ментора, познакомься с его портфолио и свяжись напрямую через Telegram. Также можно подать заявку, чтобы стать ментором.</p>
+      <h1 data-i18n="hero.title">Billova — менторская платформа студентов</h1>
+      <p data-i18n="hero.desc">Найди ментора, познакомься с его портфолио и свяжись напрямую через Telegram.</p>
       <div class="buttons">
-        <a href="#team" class="btn primary">Команда</a>
-        <a href="#apply" class="btn ghost">Оставить заявку</a>
+        <a href="#team" class="btn primary" data-i18n="hero.teamBtn">Команда</a>
+        <a href="#apply" class="btn ghost" data-i18n="hero.applyBtn">Оставить заявку</a>
       </div>
     </section>
 
     <section id="about">
-      <h2>About</h2>
-      <p>Billova — это простая и надёжная площадка для соединения студентов с опытными менторами. Основные принципы — прозрачность профилей и быстрый контакт.</p>
+      <h2 data-i18n="about.title">О проекте</h2>
+      <p data-i18n="about.text">Billova — это площадка для соединения студентов с опытными менторами.</p>
       <ul style="color:var(--muted);margin-left:16px;">
-        <li>Карточки менторов с портфолио и контактами</li>
-        <li>Форма подачи заявок через Google Forms</li>
-        <li>Адаптивный дизайн — удобно и на телефоне</li>
+        <li data-i18n="about.point1">Карточки менторов с портфолио и контактами</li>
+        <li data-i18n="about.point2">Форма подачи заявок через Google Forms</li>
+        <li data-i18n="about.point3">Адаптивный дизайн — удобно и на телефоне</li>
       </ul>
     </section>
 
     <section id="team">
-      <h2>Our Team</h2>
-      <p>Выбери ментора и свяжись с ним напрямую.</p>
+      <h2 data-i18n="team.title">Наша команда</h2>
+      <p data-i18n="team.desc">Выбери ментора и свяжись с ним напрямую.</p>
       <div class="team-grid">
         <div class="card">
-          <div class="avatar"></div>
+          <div class="avatar">A</div>
           <div class="meta">
-            <h4>Ментор 1</h4>
-            <p>Математика</p>
+            <h4 data-i18n="team.mentor1.name">Ментор 1</h4>
+            <p data-i18n="team.mentor1.subject">Математика</p>
           </div>
           <div>
-            <button class="small cv">СV</button>
+            <button class="small cv">CV</button>
             <a class="small tg" href="https://t.me/example1">TG</a>
           </div>
         </div>
         <div class="card">
-          <div class="avatar"></div>
+          <div class="avatar">B</div>
           <div class="meta">
-            <h4>Ментор 2</h4>
-            <p>Русс.Яз</p>
+            <h4 data-i18n="team.mentor2.name">Ментор 2</h4>
+            <p data-i18n="team.mentor2.subject">Русс. яз.</p>
           </div>
           <div>
             <button class="small cv">CV</button>
             <a class="small tg" href="https://t.me/example2">TG</a>
           </div>
         </div>
-        <div class="card">
-          <div class="avatar"></div>
-          <div class="meta">
-            <h4>Ментор 3</h4>
-            <p>Каз.Яз</p>
-          </div>
-          <div>
-            <button class="small cv">CV</button>
-            <a class="small tg" href="https://t.me/example3">TG</a>
-          </div>
-        </div>
       </div>
     </section>
 
     <section id="apply">
-      <h2>Apply</h2>
-      <p>Хочешь стать ментором? Заполни форму.</p>
+      <h2 data-i18n="apply.title">Заявка</h2>
+      <p data-i18n="apply.desc">Хочешь стать ментором? Заполни форму.</p>
       <div class="buttons">
-        <a href="https://forms.gle/mentor" class="btn primary">Apply as Mentor</a>
-        <a href="https://forms.gle/student" class="btn ghost">Apply as Student</a>
+        <a href="https://forms.gle/mentor" class="btn primary" data-i18n="apply.mentor">Заявка для ментора</a>
+        <a href="https://forms.gle/student" class="btn ghost" data-i18n="apply.student">Заявка для студента</a>
       </div>
     </section>
 
     <section id="contact">
-      <h2>Contact</h2>
+      <h2 data-i18n="contact.title">Контакты</h2>
       <p>Email: hello@billova.example</p>
       <p>Telegram: <a href="https://t.me/example_project">@example_project</a></p>
     </section>
   </main>
 
-  <footer>
-    © Billova — peer-to-peer mentoring
-  </footer>
+  <footer data-i18n="footer">© Billova — peer-to-peer mentoring</footer>
+
+  <script>
+    const translations = {
+      ru: {
+        "menu.about": "О проекте","menu.team": "Команда","menu.apply": "Заявка","menu.contact": "Контакты",
+        "cta": "Стать ментором",
+        "hero.title": "Billova — менторская платформа студентов",
+        "hero.desc": "Найди ментора, познакомься с его портфолио и свяжись напрямую через Telegram.",
+        "hero.teamBtn": "Команда","hero.applyBtn": "Оставить заявку",
+        "about.title": "О проекте","about.text": "Billova — площадка для соединения студентов с менторами.",
+        "about.point1": "Карточки менторов с портфолио и контактами","about.point2": "Форма через Google Forms","about.point3": "Адаптивный дизайн — удобно и на телефоне",
+        "team.title": "Наша команда","team.desc": "Выбери ментора и свяжись с ним напрямую.",
+        "team.mentor1.name": "Ментор 1","team.mentor1.subject": "Математика",
+        "team.mentor2.name": "Ментор 2","team.mentor2.subject": "Русский язык",
+        "apply.title": "Заявка","apply.desc": "Хочешь стать ментором? Заполни форму.",
+        "apply.mentor": "Заявка для ментора","apply.student": "Заявка для студента",
+        "contact.title": "Контакты","footer": "© Billova — peer-to-peer mentoring"
+      },
+      en: {
+        "menu.about": "About","menu.team": "Team","menu.apply": "Apply","menu.contact": "Contact",
+        "cta": "Become a Mentor",
+        "hero.title": "Billova — peer-to-peer mentoring platform",
+        "hero.desc": "Find a mentor, explore their portfolio and contact them directly via Telegram.",
+        "hero.teamBtn": "Team","hero.applyBtn": "Apply",
+        "about.title": "About","about.text": "Billova is a platform connecting students with mentors.",
+        "about.point1": "Mentor cards with portfolio and contacts","about.point2": "Application via Google Forms","about.point3": "Responsive design — mobile-friendly",
+        "team.title": "Our Team","team.desc": "Choose a mentor and contact them directly.",
+        "team.mentor1.name": "Mentor 1","team.mentor1.subject": "Mathematics",
+        "team.mentor2.name": "Mentor 2","team.mentor2.subject": "Russian Language",
+        "apply.title": "Apply","apply.desc": "Want to become a mentor? Fill out the form.",
+        "apply.mentor": "Apply as Mentor","apply.student": "Apply as Student",
+        "contact.title": "Contact","footer": "© Billova — peer-to-peer mentoring"
+      },
+      kz: {
+        "menu.about": "Жоба туралы","menu.team": "Команда","menu.apply": "Өтініш","menu.contact": "Байланыс",
+        "cta": "Ментор болу",
+        "hero.title": "Billova — студенттерге арналған менторинг платформасы",
+        "hero.desc": "Менторды тап, портфолиосын қарап, Telegram арқылы байланыс орнат.",
+        "hero.teamBtn": "Команда","hero.applyBtn": "Өтініш қалдыру",
+        "about.title": "Жоба туралы","about.text": "Billova — студенттер мен менторларды байланыстыратын платформа.",
+        "about.point1": "Менторлардың портфолио мен байланыстары бар карталары","about.point2": "Google Forms арқылы өтініш беру","about.point3": "Бейімделгіш дизайн — телефонға ыңғайлы",
+        "team.title": "Біздің команда","team.desc": "Менторды таңда және тікелей хабарлас.",
+        "team.mentor1.name": "Ментор 1","team.mentor1.subject": "Математика",
+        "team.mentor2.name": "Ментор 2","team.mentor2.subject": "Орыс тілі",
+        "apply.title": "Өтініш","apply.desc": "Ментор болғың келе ме? Форманы толтыр.",
+        "apply.mentor": "Ментор ретінде өтініш","apply.student": "Студент ретінде өтініш",
+        "contact.title": "Байланыс","footer": "© Billova — peer-to-peer mentoring"
+      }
+    };
+
+    function setLanguage(lang) {
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (translations[lang] && translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+      localStorage.setItem("lang", lang);
+    }
+
+    document.getElementById("lang").addEventListener("change", (e) => {
+      setLanguage(e.target.value);
+    });
+
+    const savedLang = localStorage.getItem("lang") || "ru";
+    document.getElementById("lang").value = savedLang;
+    setLanguage(savedLang);
+  </script>
 </body>
 </html>
