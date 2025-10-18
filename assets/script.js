@@ -1,10 +1,3 @@
-
-/* Для автоматической подгрузки менторов:
-   1) создай Google Sheet. Первая строка = заголовки: name, class, subject, tg, cv, photo, achievements
-   2) File → Publish to the web (опубликовать лист)
-   3) Вставь ID таблицы ниже (вместо 'REPLACE_SHEET_ID')
-   4) Убедись, что имя листа — mentors (или поменяй SHEET_NAME)
-*/
 const SHEET_ID = '109pwbDP_90BGJTjSY4is4cLsR_uHRywmGvNvqz-gl6o';
 const SHEET_NAME = 'Лист1';
 
@@ -49,9 +42,6 @@ const TRANSLATIONS = {
 };
 
 function renderHeaderFooter() {
-  const headers = document.querySelectorAll('[data-include].site-header, .site-header[data-include]');
-  const footers = document.querySelectorAll('[data-include].site-footer, .site-footer[data-include]');
-
   const headerHtml = `
     <div class="nav">
       <div class="logo"><span class="logo-box">B</span><span class="site-title">Billova</span></div>
@@ -62,8 +52,8 @@ function renderHeaderFooter() {
       </nav>
       <div class="controls">
         <div class="lang-switch" id="langSwitch">
-          <a href="#" data-lang="ru">RU</a>|
-          <a href="#" data-lang="kz">KZ</a>|
+          <a href="#" data-lang="ru">RU</a> |
+          <a href="#" data-lang="kz">KZ</a> |
           <a href="#" data-lang="en">EN</a>
         </div>
       </div>
@@ -79,133 +69,119 @@ function renderHeaderFooter() {
     </div>
   `;
 
-  
-  const singleHeader = document.querySelector('.site-header[data-include]');
-  if (singleHeader) singleHeader.innerHTML = headerHtml;
-  const singleFooter = document.querySelector('.site-footer[data-include]');
-  if (singleFooter) singleFooter.innerHTML = footerHtml;
-
-  
-  headers.forEach(h => h.innerHTML = headerHtml);
-  footers.forEach(f => f.innerHTML = footerHtml);
+  document.querySelectorAll('.site-header[data-include]').forEach(h => h.innerHTML = headerHtml);
+  document.querySelectorAll('.site-footer[data-include]').forEach(f => f.innerHTML = footerHtml);
 }
 
 function applyTranslations(lang) {
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
-    if (!key) return;
     if (TRANSLATIONS[lang] && TRANSLATIONS[lang][key]) {
       el.textContent = TRANSLATIONS[lang][key];
     }
   });
   localStorage.setItem('b_lang', lang);
-  // update active lang in header
-  const langLinks = document.querySelectorAll('#langSwitch a[data-lang]');
-  langLinks.forEach(a => {
+  document.querySelectorAll('#langSwitch a[data-lang]').forEach(a => {
     a.classList.toggle('active', a.getAttribute('data-lang') === lang);
   });
 }
 
 function initLanguageSwitcher() {
-  const switcher = document.getElementById('langSwitch');
-  if (!switcher) return;
   const saved = localStorage.getItem('b_lang') || 'ru';
   applyTranslations(saved);
-
-  switcher.addEventListener('click', (e) => {
-    const a = e.target.closest('a[data-lang]');
-    if (!a) return;
-    e.preventDefault();
-    const lang = a.getAttribute('data-lang');
-    applyTranslations(lang);
-  });
+  const switcher = document.getElementById('langSwitch');
+  if (switcher) {
+    switcher.addEventListener('click', e => {
+      const a = e.target.closest('a[data-lang]');
+      if (!a) return;
+      e.preventDefault();
+      applyTranslations(a.getAttribute('data-lang'));
+    });
+  }
 }
 
-
+/* ---- ГЛАВНОЕ ИСПРАВЛЕНИЕ ЗДЕСЬ ---- */
 function loadMentorsFromSheet() {
   const container = document.getElementById('mentorsList');
   if (!container) return;
 
-  if (!SHEET_ID || SHEET_ID === 'REPLACE_SHEET_ID') {
-    container.innerHTML = '<div class="loader">Таблица не настроена — вставьте SHEET_ID в assets/script.js</div>';
-    return;
-  }
-
   const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
-  fetch(url).then(r => r.text()).then(text => {
-    const jsonText = text.replace(/^[^\(]+\(|\);?$/g, '');
-    const data = JSON.parse(jsonText);
-    const cols = data.table.cols.map(c => (c.label||'').trim());
-    const rows = data.table.rows.map(r => r.c.map(cell => (cell ? cell.v : '')));
-    const mentors = rows.map(r => {
-      const obj = {};
-      cols.forEach((col,i) => obj[col || `col${i}`] = r[i] || '');
-      return obj;
+  fetch(url)
+    .then(r => r.text())
+    .then(text => {
+      const json = JSON.parse(text.substr(47).slice(0, -2));
+      const cols = json.table.cols.map(c => (c.label || '').trim().toLowerCase());
+      const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : '')));
+
+      // пропускаем строку заголовков и пустые строки
+      const dataRows = rows.filter(row => {
+        const filled = row.some(cell => cell && String(cell).trim() !== '');
+        const isHeader = row.join('').toLowerCase().includes('nameclasssubject');
+        return filled && !isHeader;
+      });
+
+      const mentors = dataRows
+        .map(r => {
+          const obj = {};
+          cols.forEach((col, i) => (obj[col] = r[i] || ''));
+          return obj;
+        })
+        // убираем те, у кого нет имени
+        .filter(m => m.name && m.name.trim() !== '');
+
+      renderMentors(mentors, container);
+    })
+    .catch(err => {
+      console.error(err);
+      container.innerHTML = '<div class="loader">Ошибка загрузки данных из таблицы</div>';
     });
-    renderMentors(mentors, container);
-  }).catch(err => {
-    container.innerHTML = '<div class="loader">Ошибка загрузки</div>';
-    console.error(err);
-  });
 }
 
 function renderMentors(mentors, container) {
-  if (!mentors || mentors.length === 0) {
+  if (!mentors.length) {
     container.innerHTML = '<div class="loader">Менторы не найдены.</div>';
     return;
   }
   container.innerHTML = '';
   mentors.forEach(m => {
-    const name = m.name || m.Name || '—';
-    const role = m.subject || m.role || m.Subject || '';
-    const cls = m.class || m.Class || '';
-    const tg = m.tg || m.TG || '';
-    const photo = m.photo || m.Photo || '';
-    const achievements = m.achievements || m.Achievements || '';
+    const name = m.name || '—';
+    const subject = m.subject || '';
+    const cls = m.class || '';
+    const tg = m.tg || '';
+    const photo = m.photo || '';
+    const achievements = m.achievements || '';
 
-    const initials = name.split(' ').map(s=>s[0]||'').slice(0,2).join('').toUpperCase() || 'M';
-    const avatarHtml = photo
-      ? `<img src="${photo}" alt="${name}" style="width:64px;height:64px;border-radius:10px;object-fit:cover">`
+    const initials = name.split(' ').map(s => s[0]).join('').toUpperCase();
+    const avatar = photo
+      ? `<img src="${photo}" alt="${name}" style="width:64px;height:64px;border-radius:10px;object-fit:cover;">`
       : `<div class="avatar">${initials}</div>`;
 
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-      <div class="left" style="display:flex;align-items:center;gap:12px">
-        ${avatarHtml}
-        <div class="meta">
-          <h4>${escapeHtml(name)}</h4>
-          <p>${escapeHtml(role)} · ${escapeHtml(cls)}</p>
-          ${achievements ? `<p style="font-size:13px;color:var(--muted);margin-top:6px">${escapeHtml(achievements)}</p>` : ''}
+    const tgLink = tg
+      ? `<a class="small tg" href="${tg.startsWith('http') ? tg : 'https://t.me/' + tg.replace('@', '')}" target="_blank" rel="noopener">TG</a>`
+      : '';
+
+    container.innerHTML += `
+      <div class="card">
+        <div class="left" style="display:flex;align-items:center;gap:12px;">
+          ${avatar}
+          <div class="meta">
+            <h4>${escapeHtml(name)}</h4>
+            <p>${escapeHtml(subject)} · ${escapeHtml(cls)}</p>
+            ${achievements ? `<p style="font-size:13px;color:var(--muted);margin-top:6px;">${escapeHtml(achievements)}</p>` : ''}
+          </div>
         </div>
-      </div>
-      <div class="actions">
-        ${tg ? `<a class="small tg" href="${tg.startsWith('http') ? tg : 'https://t.me/' + tg.replace(/^@/, '')}" target="_blank" rel="noopener">TG</a>` : ''}
+        <div class="actions">${tgLink}</div>
       </div>
     `;
-    container.appendChild(card);
   });
 }
 
-
 function escapeHtml(str) {
-  return String(str).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  return String(str).replace(/[&<>"]/g, s => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[s]));
 }
-
 
 document.addEventListener('DOMContentLoaded', () => {
   renderHeaderFooter();
   initLanguageSwitcher();
-
-  
-  if (document.getElementById('mentorsList')) {
-    loadMentorsFromSheet();
-  }
-
-  
-  const mentorFormBtn = document.getElementById('mentorFormBtn');
-  if (mentorFormBtn && mentorFormBtn.getAttribute('data-form-url')) {
-    mentorFormBtn.href = mentorFormBtn.dataset.formUrl;
-  }
+  if (document.getElementById('mentorsList')) loadMentorsFromSheet();
 });
-
