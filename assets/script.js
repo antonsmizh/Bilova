@@ -15,7 +15,7 @@ const TRANSLATIONS = {
     "hero.lead":"Мы связываем студентов и менторов: портфолио и быстрый контакт.",
     "about.title":"О проекте","about.text":"Billova — простая и удобная площадка, где студенты могут найти ментора по предмету.",
     "about.f1":"","about.f2":"","about.f3":"",
-    "how.title":"Как это работает","how.step1":"Добавляем ментора в таблицу — он появляется на сайте.","how.step2":"Студент связывается с ментором в Telegram.","how.step3":"Заполни форму, если хочешь стать ментором.",
+    "how.title":"Как это работает","how.step1":"","how.step2":"","how.step3":"",
     "team.title":"Наши менторы","team.lead":"Выбери ментора и свяжись с ним напрямую через Telegram.",
     "apply.title":"Стать ментором","apply.lead":"Заполни короткую форму — имя, класс, предмет, фото и достижения.",
     "apply.q1":"Имя","apply.q2":"Класс","apply.q3":"Предмет","apply.q4":"Фото","apply.q5":"Достижения",
@@ -27,7 +27,7 @@ const TRANSLATIONS = {
     "hero.title":"Billova — студенттерге арналған менторинг","hero.lead":"Студенттер мен менторларды байланыстырамыз: портфолио және тез байланыс.",
     "about.title":"Жоба туралы","about.text":"Billova — студенттерге ментор табуға арналған қарапайым платформа.",
     "about.f1":"","about.f2":"","about.f3":"",
-    "how.title":"Қалай жұмыс істейді","how.step1":"Менторды кестеге қосу — сайтқа шығады.","how.step2":"Студент Telegram арқылы байланысады.","how.step3":"Ментор болу үшін форманы толтыру.",
+    "how.title":"Қалай жұмыс істейді","how.step1":"","how.step2":"","how.step3":"",
     "team.title":"Менторларымыз","team.lead":"Менторды таңдап, Telegram арқылы байланысуға болады.",
     "apply.title":"Ментор болу","apply.lead":"Қысқа форманы толтыр — аты, сынып, пән, фото және жетістіктер.",
     "apply.q1":"Аты-жөні","apply.q2":"Сынып","apply.q3":"Пән","apply.q4":"Фото","apply.q5":"Жетістіктер",
@@ -39,7 +39,7 @@ const TRANSLATIONS = {
     "hero.title":"Billova — peer-to-peer mentoring platform","hero.lead":"We connect students and mentors: portfolios and quick contact.",
     "about.title":"About","about.text":"Billova is a simple platform for students to find mentors by subject.",
     "about.f1":"","about.f2":"","about.f3":"",
-    "how.title":"How it works","how.step1":"Add a mentor to the sheet — they appear on the site.","how.step2":"Student contacts the mentor via Telegram.","how.step3":"Fill the form to become a mentor.",
+    "how.title":"How it works","how.step1":"","how.step2":"","how.step3":"",
     "team.title":"Our mentors","team.lead":"Choose a mentor and contact them via Telegram.",
     "apply.title":"Become a mentor","apply.lead":"Fill a short form — name, class, subject, photo and achievements.",
     "apply.q1":"Name","apply.q2":"Class","apply.q3":"Subject","apply.q4":"Photo","apply.q5":"Achievements",
@@ -208,4 +208,5 @@ document.addEventListener('DOMContentLoaded', () => {
     mentorFormBtn.href = mentorFormBtn.dataset.formUrl;
   }
 });
+
 
