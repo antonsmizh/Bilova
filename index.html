@@ -7,48 +7,41 @@
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-  <header class="site-header" data-include>
-    <!-- header rendered by script.js -->
-  </header>
+  <header class="site-header" data-include></header>
 
   <main class="container">
     <section class="hero">
       <h1 data-i18n="hero.title">Billova — менторская платформа студентов</h1>
-      <p data-i18n="hero.subtitle">
-        Мы связываем студентов и менторов: портфолио, связи и поддержка — всё на одной простой платформе.
-      </p>
-      <div class="hero-actions">
-        <a class="btn primary" href="team.html" data-i18n="hero.ctaTeam">Посмотреть менторов</a>
-        <a class="btn ghost" href="apply.html" data-i18n="hero.ctaApply">Стать ментором</a>
-      </div>
-    </section>
-
-    <section class="about" id="about">
-      <h2 data-i18n="about.title">О проекте</h2>
-      <p data-i18n="about.body">
-        Billova — это простая и надёжная платформа peer-to-peer mentoring для студентов: краткие профили менторов, прямые контакты в Telegram и удобная подача заявок.
+      <p class="lead" data-i18n="hero.lead">
+        Мы связываем студентов и менторов: портфолио и быстрый контакт.
       </p>
 
-      <ul class="features">
-        <li data-i18n="about.f1">Простые профили менторов</li>
-        <li data-i18n="about.f2">Подать заявку — Google Forms</li>
-        <li data-i18n="about.f3">Поддержка RU / KZ / EN</li>
-      </ul>
-    </section>
+      <section class="about" aria-labelledby="about-title">
+        <h2 id="about-title" data-i18n="about.title">О проекте</h2>
+        <p data-i18n="about.text">
+          Billova — простая и удобная площадка, где студенты могут найти ментора по предмету,
+          посмотреть краткое портфолио и написать ему в Telegram. Всё просто, ясно и без лишних фич.
+        </p>
 
-    <section class="how" id="how">
-      <h2 data-i18n="how.title">Как это работает</h2>
-      <ol>
-        <li data-i18n="how.step1">Найти ментора на странице «Менторы».</li>
-        <li data-i18n="how.step2">Перейти в его профиль и написать в Telegram.</li>
-        <li data-i18n="how.step3">Если хочешь стать ментором — заполни форму на странице «Стать ментором».</li>
-      </ol>
+        <ul class="features">
+          <li data-i18n="about.f1">Карточки менторов с фото, классом и предметом</li>
+          <li data-i18n="about.f2">Добавление менторов через таблицу (Google Sheets)</li>
+          <li data-i18n="about.f3">Поддержка RU / KZ / EN</li>
+        </ul>
+      </section>
+
+      <section class="how" aria-labelledby="how-title">
+        <h3 id="how-title" data-i18n="how.title">Как это работает</h3>
+        <ol>
+          <li data-i18n="how.step1">Добавляем ментора в таблицу — он автоматически появляется на сайте.</li>
+          <li data-i18n="how.step2">Студент открывает страницу «Менторы», выбирает карточку и пишет в Telegram.</li>
+          <li data-i18n="how.step3">Если хочешь стать ментором — заполни форму на странице «Стать ментором».</li>
+        </ol>
+      </section>
     </section>
   </main>
 
-  <footer class="site-footer" data-include>
-    <!-- footer rendered by script.js -->
-  </footer>
+  <footer class="site-footer" data-include></footer>
 
   <script src="assets/script.js"></script>
 </body>
