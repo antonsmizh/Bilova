@@ -160,12 +160,13 @@ function renderMentors(mentors, container) {
     const role = m.subject || m.role || m.Subject || '';
     const cls = m.class || m.Class || '';
     const tg = m.tg || m.TG || '';
-    const cv = m.cv || m.CV || '';
     const photo = m.photo || m.Photo || '';
     const achievements = m.achievements || m.Achievements || '';
 
     const initials = name.split(' ').map(s=>s[0]||'').slice(0,2).join('').toUpperCase() || 'M';
-    const avatarHtml = photo ? `<img src="${photo}" alt="${name}" style="width:64px;height:64px;border-radius:10px;object-fit:cover">` : `<div class="avatar">${initials}</div>`;
+    const avatarHtml = photo
+      ? `<img src="${photo}" alt="${name}" style="width:64px;height:64px;border-radius:10px;object-fit:cover">`
+      : `<div class="avatar">${initials}</div>`;
 
     const card = document.createElement('div');
     card.className = 'card';
@@ -179,8 +180,7 @@ function renderMentors(mentors, container) {
         </div>
       </div>
       <div class="actions">
-        ${cv ? `<a class="small cv" href="${cv}" target="_blank" rel="noopener">CV</a>` : ''}
-        ${tg ? `<a class="small tg" href="${tg}" target="_blank" rel="noopener">TG</a>` : ''}
+        ${tg ? `<a class="small tg" href="${tg.startsWith('http') ? tg : 'https://t.me/' + tg.replace(/^@/, '')}" target="_blank" rel="noopener">TG</a>` : ''}
       </div>
     `;
     container.appendChild(card);
@@ -208,6 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
     mentorFormBtn.href = mentorFormBtn.dataset.formUrl;
   }
 });
+
 
 
 
