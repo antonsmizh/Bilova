@@ -10,28 +10,25 @@
   <header class="site-header" data-include></header>
 
   <main class="container">
-    <section class="apply-page">
+    <section class="apply-box">
       <h1 data-i18n="apply.title">Стать ментором</h1>
 
-      <p data-i18n="apply.intro">
-        Спасибо, что хочешь помочь другим! Заполни короткую форму — укажи специализацию, опыт и ссылки на портфолио/резюме.
+      <p data-i18n="apply.lead">
+        Спасибо, что хочешь помочь другим. Заполни короткую форму — укажи имя, класс, предмет (выбери из списка),
+        добавь фото и опиши достижения (олимпиады, конкурсы) — это поможет студентам понять твою экспертизу.
       </p>
 
-      <h3 data-i18n="apply.what">Что указывать в форме</h3>
-      <ul>
-        <li data-i18n="apply.q1">ФИО и краткая биография (2–3 предложения)</li>
-        <li data-i18n="apply.q2">Специализация и навыки</li>
-        <li data-i18n="apply.q3">Ссылка на портфолио / CV</li>
-        <li data-i18n="apply.q4">Ссылка/ник в Telegram для связи</li>
+      <ul class="apply-list">
+        <li data-i18n="apply.q1">Имя</li>
+        <li data-i18n="apply.q2">Класс</li>
+        <li data-i18n="apply.q3">Предмет (выпадающий список)</li>
+        <li data-i18n="apply.q4">Фото (ссылка или загрузка)</li>
+        <li data-i18n="apply.q5">Достижения (кратко)</li>
       </ul>
 
-      <p data-i18n="apply.note">
-        После проверки администратором ваша карточка будет автоматически добавлена в каталог менторов.
-      </p>
-
-      <div class="buttons">
-        <a class="btn primary" id="mentorFormBtn" href="https://forms.gle/REPLACE_MENTOR_FORM" target="_blank" rel="noopener" data-i18n="apply.btnMentor">Заполнить форму (мeнтор)</a>
-        <a class="btn ghost" id="studentFormBtn" href="https://forms.gle/REPLACE_STUDENT_FORM" target="_blank" rel="noopener" data-i18n="apply.btnStudent">Заполнить форму (студент)</a>
+      <div class="actions">
+        <!-- временная заглушка; заменишь на ссылку Google Form -->
+        <a id="mentorFormBtn" class="btn primary" href="#" target="_blank" rel="noopener" data-i18n="apply.btn">Заполнить форму</a>
       </div>
     </section>
   </main>
