@@ -5,7 +5,7 @@
    3) Вставь ID таблицы ниже (вместо 'REPLACE_SHEET_ID')
    4) Убедись, что имя листа — mentors (или поменяй SHEET_NAME)
 */
-const SHEET_ID = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS3Q39xaH5uBZyXjj6aPOhYI8onlFqIRATrRgme9LARKldxdfvpPepvHwGHu39Y4wOd7T1_5PypV0H7/pubhtml';
+const SHEET_ID = '2PACX-1vS3Q39xaH5uBZyXjj6aPOhYI8onlFqIRATrRgme9LARKldxdfvpPepvHwGHu39Y4wOd7T1_5PypV0H7';
 const SHEET_NAME = 'mentors';
 
 const TRANSLATIONS = {
@@ -208,4 +208,5 @@ document.addEventListener('DOMContentLoaded', () => {
     mentorFormBtn.href = mentorFormBtn.dataset.formUrl;
   }
 });
+
 
