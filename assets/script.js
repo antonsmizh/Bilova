@@ -1,53 +1,57 @@
-/* === Billova JS ===
-   Инструкция:
-   1) Создай Google Sheet с колонками:
-      name | class | subject | tg | photo | achievements
-   2) Файл → Опубликовать в интернете → Опубликовать весь лист
-   3) Сделай доступ "Anyone with the link - Viewer"
-   4) Вставь только ID таблицы (между /d/ и /edit)
-      Пример: https://docs.google.com/spreadsheets/d/XXXX/edit
-      → const SHEET_ID = 'XXXX';
+
+/* Для автоматической подгрузки менторов:
+   1) создай Google Sheet. Первая строка = заголовки: name, class, subject, tg, cv, photo, achievements
+   2) File → Publish to the web (опубликовать лист)
+   3) Вставь ID таблицы ниже (вместо 'REPLACE_SHEET_ID')
+   4) Убедись, что имя листа — mentors (или поменяй SHEET_NAME)
 */
+const SHEET_ID = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS3Q39xaH5uBZyXjj6aPOhYI8onlFqIRATrRgme9LARKldxdfvpPepvHwGHu39Y4wOd7T1_5PypV0H7/pubhtml';
+const SHEET_NAME = 'mentors';
 
-const SHEET_ID = '109pwbDP_90BGJTjSY4is4cLsR_uHRywmGvNvqz-gl6o'; // <--- твой ID
-const SHEET_NAME = 'Лист1'; // или 'mentors', если так называется вкладка
-
-/* === Переводы === */
 const TRANSLATIONS = {
   ru: {
     "menu.about":"О нас","menu.team":"Менторы","menu.apply":"Стать ментором",
     "hero.title":"Billova — менторская платформа студентов",
     "hero.lead":"Мы связываем студентов и менторов: портфолио и быстрый контакт.",
     "about.title":"О проекте","about.text":"Billova — простая и удобная площадка, где студенты могут найти ментора по предмету.",
+    "about.f1":"","about.f2":"","about.f3":"",
+    "how.title":"Как это работает","how.step1":"","how.step2":"","how.step3":"",
     "team.title":"Наши менторы","team.lead":"Выбери ментора и свяжись с ним напрямую через Telegram.",
     "apply.title":"Стать ментором","apply.lead":"Заполни короткую форму — имя, класс, предмет, фото и достижения.",
-    "apply.btn":"Перейти к форме",
+    "apply.q1":"Имя","apply.q2":"Класс","apply.q3":"Предмет","apply.q4":"Фото","apply.q5":"Достижения",
+    "apply.btn":"Заполнить форму",
     "contact.title":"Контакты","footer":"© Billova — peer-to-peer mentoring"
   },
   kz: {
     "menu.about":"Біз туралы","menu.team":"Менторлар","menu.apply":"Ментор болу",
-    "hero.title":"Billova — студенттерге арналған менторинг платформасы",
-    "hero.lead":"Студенттер мен менторларды байланыстырамыз: портфолио және тез байланыс.",
-    "about.title":"Жоба туралы","about.text":"Billova — студенттерге пән бойынша ментор табуға арналған қарапайым платформа.",
-    "team.title":"Менторларымыз","team.lead":"Менторды таңдап, Telegram арқылы байланыс.",
+    "hero.title":"Billova — студенттерге арналған менторинг","hero.lead":"Студенттер мен менторларды байланыстырамыз: портфолио және тез байланыс.",
+    "about.title":"Жоба туралы","about.text":"Billova — студенттерге ментор табуға арналған қарапайым платформа.",
+    "about.f1":"","about.f2":"","about.f3":"",
+    "how.title":"Қалай жұмыс істейді","how.step1":"","how.step2":"","how.step3":"",
+    "team.title":"Менторларымыз","team.lead":"Менторды таңдап, Telegram арқылы байланысуға болады.",
     "apply.title":"Ментор болу","apply.lead":"Қысқа форманы толтыр — аты, сынып, пән, фото және жетістіктер.",
+    "apply.q1":"Аты-жөні","apply.q2":"Сынып","apply.q3":"Пән","apply.q4":"Фото","apply.q5":"Жетістіктер",
     "apply.btn":"Форманы толтыру",
     "contact.title":"Байланыс","footer":"© Billova — peer-to-peer mentoring"
   },
   en: {
     "menu.about":"About","menu.team":"Mentors","menu.apply":"Become a mentor",
-    "hero.title":"Billova — peer-to-peer mentoring platform",
-    "hero.lead":"We connect students and mentors: portfolios and quick contact.",
+    "hero.title":"Billova — peer-to-peer mentoring platform","hero.lead":"We connect students and mentors: portfolios and quick contact.",
     "about.title":"About","about.text":"Billova is a simple platform for students to find mentors by subject.",
+    "about.f1":"","about.f2":"","about.f3":"",
+    "how.title":"How it works","how.step1":"","how.step2":"","how.step3":"",
     "team.title":"Our mentors","team.lead":"Choose a mentor and contact them via Telegram.",
     "apply.title":"Become a mentor","apply.lead":"Fill a short form — name, class, subject, photo and achievements.",
-    "apply.btn":"Open the form",
+    "apply.q1":"Name","apply.q2":"Class","apply.q3":"Subject","apply.q4":"Photo","apply.q5":"Achievements",
+    "apply.btn":"Fill the form",
     "contact.title":"Contact","footer":"© Billova — peer-to-peer mentoring"
   }
 };
 
-/* === Шапка и подвал === */
 function renderHeaderFooter() {
+  const headers = document.querySelectorAll('[data-include].site-header, .site-header[data-include]');
+  const footers = document.querySelectorAll('[data-include].site-footer, .site-footer[data-include]');
+
   const headerHtml = `
     <div class="nav">
       <div class="logo"><span class="logo-box">B</span><span class="site-title">Billova</span></div>
@@ -58,8 +62,8 @@ function renderHeaderFooter() {
       </nav>
       <div class="controls">
         <div class="lang-switch" id="langSwitch">
-          <a href="#" data-lang="ru">RU</a> |
-          <a href="#" data-lang="kz">KZ</a> |
+          <a href="#" data-lang="ru">RU</a>|
+          <a href="#" data-lang="kz">KZ</a>|
           <a href="#" data-lang="en">EN</a>
         </div>
       </div>
@@ -69,29 +73,35 @@ function renderHeaderFooter() {
   const footerHtml = `
     <div class="container">
       <div class="footer-row">
-        <div class="left" data-i18n="footer">© Billova — peer-to-peer mentoring</div>
-        <div class="right">
-          Email: hello@billova.example · Telegram: 
-          <a href="https://t.me/example_project" target="_blank" rel="noopener">@example_project</a>
-        </div>
+        <div class="left">© Billova — peer-to-peer mentoring</div>
+        <div class="right">Email: hello@billova.example · Telegram: <a href="https://t.me/example_project" target="_blank" rel="noopener">@example_project</a></div>
       </div>
     </div>
   `;
 
-  document.querySelectorAll('.site-header[data-include]').forEach(h => h.innerHTML = headerHtml);
-  document.querySelectorAll('.site-footer[data-include]').forEach(f => f.innerHTML = footerHtml);
+  
+  const singleHeader = document.querySelector('.site-header[data-include]');
+  if (singleHeader) singleHeader.innerHTML = headerHtml;
+  const singleFooter = document.querySelector('.site-footer[data-include]');
+  if (singleFooter) singleFooter.innerHTML = footerHtml;
+
+  
+  headers.forEach(h => h.innerHTML = headerHtml);
+  footers.forEach(f => f.innerHTML = footerHtml);
 }
 
-/* === Перевод === */
 function applyTranslations(lang) {
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
+    if (!key) return;
     if (TRANSLATIONS[lang] && TRANSLATIONS[lang][key]) {
       el.textContent = TRANSLATIONS[lang][key];
     }
   });
   localStorage.setItem('b_lang', lang);
-  document.querySelectorAll('#langSwitch a[data-lang]').forEach(a => {
+  // update active lang in header
+  const langLinks = document.querySelectorAll('#langSwitch a[data-lang]');
+  langLinks.forEach(a => {
     a.classList.toggle('active', a.getAttribute('data-lang') === lang);
   });
 }
@@ -101,101 +111,101 @@ function initLanguageSwitcher() {
   if (!switcher) return;
   const saved = localStorage.getItem('b_lang') || 'ru';
   applyTranslations(saved);
-  switcher.addEventListener('click', e => {
+
+  switcher.addEventListener('click', (e) => {
     const a = e.target.closest('a[data-lang]');
     if (!a) return;
     e.preventDefault();
-    applyTranslations(a.dataset.lang);
+    const lang = a.getAttribute('data-lang');
+    applyTranslations(lang);
   });
 }
 
-/* === Подгрузка менторов из таблицы === */
+
 function loadMentorsFromSheet() {
   const container = document.getElementById('mentorsList');
   if (!container) return;
 
-  if (!SHEET_ID) {
-    container.innerHTML = '<div class="loader">Ошибка: SHEET_ID не указан.</div>';
+  if (!SHEET_ID || SHEET_ID === 'REPLACE_SHEET_ID') {
+    container.innerHTML = '<div class="loader">Таблица не настроена — вставьте SHEET_ID в assets/script.js</div>';
     return;
   }
 
   const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
-  container.innerHTML = '<div class="loader">Загрузка менторов...</div>';
-  console.log('[Billova] Загружаем данные из:', url);
-
-  fetch(url)
-    .then(r => {
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      return r.text();
-    })
-    .then(text => {
-      const json = JSON.parse(text.replace(/^[^\(]+\(|\);?$/g, ''));
-      if (!json.table || !json.table.rows.length) {
-        container.innerHTML = '<div class="loader">Нет данных в таблице.</div>';
-        return;
-      }
-
-      const cols = json.table.cols.map(c => (c.label || '').toLowerCase());
-      const mentors = json.table.rows.map(r => {
-        const obj = {};
-        cols.forEach((col, i) => (obj[col] = r.c[i] ? r.c[i].v : ''));
-        return obj;
-      });
-      renderMentors(mentors, container);
-    })
-    .catch(err => {
-      console.error('[Billova] Ошибка загрузки:', err);
-      container.innerHTML = '<div class="loader">Ошибка загрузки. Проверь права доступа и ID таблицы.</div>';
+  fetch(url).then(r => r.text()).then(text => {
+    const jsonText = text.replace(/^[^\(]+\(|\);?$/g, '');
+    const data = JSON.parse(jsonText);
+    const cols = data.table.cols.map(c => (c.label||'').trim());
+    const rows = data.table.rows.map(r => r.c.map(cell => (cell ? cell.v : '')));
+    const mentors = rows.map(r => {
+      const obj = {};
+      cols.forEach((col,i) => obj[col || `col${i}`] = r[i] || '');
+      return obj;
     });
+    renderMentors(mentors, container);
+  }).catch(err => {
+    container.innerHTML = '<div class="loader">Ошибка загрузки</div>';
+    console.error(err);
+  });
 }
 
-/* === Отрисовка карточек менторов === */
 function renderMentors(mentors, container) {
-  if (!mentors.length) {
+  if (!mentors || mentors.length === 0) {
     container.innerHTML = '<div class="loader">Менторы не найдены.</div>';
     return;
   }
   container.innerHTML = '';
-
   mentors.forEach(m => {
-    const name = m.name || 'Без имени';
-    const subject = m.subject || '';
-    const cls = m.class || '';
-    const tg = m.tg || '';
-    const photo = m.photo || '';
-    const achievements = m.achievements || '';
+    const name = m.name || m.Name || '—';
+    const role = m.subject || m.role || m.Subject || '';
+    const cls = m.class || m.Class || '';
+    const tg = m.tg || m.TG || '';
+    const photo = m.photo || m.Photo || '';
+    const achievements = m.achievements || m.Achievements || '';
 
-    const tgLink = tg ? (tg.startsWith('http') ? tg : 'https://t.me/' + tg.replace(/^@/, '')) : '';
-    const initials = name.split(' ').map(s => s[0]).join('').slice(0,2).toUpperCase();
+    const initials = name.split(' ').map(s=>s[0]||'').slice(0,2).join('').toUpperCase() || 'M';
+    const avatarHtml = photo
+      ? `<img src="${photo}" alt="${name}" style="width:64px;height:64px;border-radius:10px;object-fit:cover">`
+      : `<div class="avatar">${initials}</div>`;
 
     const card = document.createElement('div');
     card.className = 'card';
     card.innerHTML = `
       <div class="left" style="display:flex;align-items:center;gap:12px">
-        ${photo ? `<img src="${photo}" alt="${name}" style="width:64px;height:64px;border-radius:10px;object-fit:cover">`
-                : `<div class="avatar">${initials}</div>`}
+        ${avatarHtml}
         <div class="meta">
           <h4>${escapeHtml(name)}</h4>
-          <p>${escapeHtml(subject)} · ${escapeHtml(cls)}</p>
-          ${achievements ? `<p class="ach">${escapeHtml(achievements)}</p>` : ''}
+          <p>${escapeHtml(role)} · ${escapeHtml(cls)}</p>
+          ${achievements ? `<p style="font-size:13px;color:var(--muted);margin-top:6px">${escapeHtml(achievements)}</p>` : ''}
         </div>
       </div>
       <div class="actions">
-        ${tgLink ? `<a class="small tg" href="${tgLink}" target="_blank" rel="noopener">TG</a>` : ''}
+        ${tg ? `<a class="small tg" href="${tg.startsWith('http') ? tg : 'https://t.me/' + tg.replace(/^@/, '')}" target="_blank" rel="noopener">TG</a>` : ''}
       </div>
     `;
     container.appendChild(card);
   });
 }
 
-/* === Безопасность HTML === */
+
 function escapeHtml(str) {
-  return String(str).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+  return String(str).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 }
 
-/* === Инициализация === */
+
 document.addEventListener('DOMContentLoaded', () => {
   renderHeaderFooter();
   initLanguageSwitcher();
-  if (document.getElementById('mentorsList')) loadMentorsFromSheet();
+
+  
+  if (document.getElementById('mentorsList')) {
+    loadMentorsFromSheet();
+  }
+
+  
+  const mentorFormBtn = document.getElementById('mentorFormBtn');
+  if (mentorFormBtn && mentorFormBtn.getAttribute('data-form-url')) {
+    mentorFormBtn.href = mentorFormBtn.dataset.formUrl;
+  }
 });
+
