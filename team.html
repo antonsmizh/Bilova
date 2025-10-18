@@ -1,51 +1,27 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Billova — Команда</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Billova — Менторы</title>
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-  <header>
-    <div class="logo">Billova</div>
-    <nav>
-      <a href="index.html" data-i18n="menu.about">О нас</a>
-      <a href="team.html" data-i18n="menu.team">Команда</a>
-      <a href="apply.html" data-i18n="menu.apply">Заявка</a>
-      <a href="contact.html" data-i18n="menu.contact">Контакты</a>
-    </nav>
-    <div class="controls">
-      <select id="languageSwitcher">
-        <option value="ru">RU</option>
-        <option value="en">EN</option>
-        <option value="kz">KZ</option>
-      </select>
-      <button id="themeToggle">🌓</button>
-    </div>
-  </header>
+  <header class="site-header" data-include></header>
 
-  <main>
-    <section class="team">
-      <h2 data-i18n="team.title">Наша команда</h2>
-      <div class="team-grid">
-        <div class="mentor">
-          <img src="https://via.placeholder.com/150" alt="Mentor">
-          <h3>Мадияр</h3>
-          <p>Биология</p>
-        </div>
-        <div class="mentor">
-          <img src="https://via.placeholder.com/150" alt="Mentor">
-          <h3>Данияр</h3>
-          <p>Химия</p>
-        </div>
+  <main class="container">
+    <section>
+      <h1 data-i18n="team.title">Наши менторы</h1>
+      <p data-i18n="team.subtitle">Выбери ментора и свяжись с ним через Telegram (ссылка в карточке).</p>
+
+      <div id="mentorsList" class="team-grid" aria-live="polite">
+        <!-- Заполняется скриптом -->
+        <div class="loader">Загрузка...</div>
       </div>
     </section>
   </main>
 
-  <footer>
-    <p>© 2025 Billova. All rights reserved.</p>
-  </footer>
+  <footer class="site-footer" data-include></footer>
 
   <script src="assets/script.js"></script>
 </body>
