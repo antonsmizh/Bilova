@@ -53,32 +53,72 @@
       .nav{flex-wrap:wrap;}
       .hero{align-items:center;text-align:center;}
     }
+    
+body.dark {
+  --bg: #121212;
+  --primary: #D4D4D4;
+  --primary-2: #8CA4D4;
+  --muted: #A0A0A0;
+  --card: #1E1E1E;
+  --shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  color: var(--primary);
+}
+
+#theme-toggle {
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+#theme-toggle:hover {
+  background-color: var(--primary);
+  transform: translateY(-1px);
+}
+
+
+#language-switcher {
+  background-color: var(--primary-2);
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-weight: 700;
+  font-size: 15px;
+  height: 44px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+#language-switcher:hover {
+  background-color: var(--primary);
+  transform: translateY(-1px);
+}
+
   </style>
 </head>
 <body>
   <header>
-    <div class="nav">
-      <div class="logo">
-        <div style="background:var(--primary);color:white;padding:6px 10px;border-radius:8px;font-weight:800;">B</div>
-        <div>Billova</div>
-      </div>
-      <div class="menu">
-        <a href="#about" data-i18n="menu.about">О проекте</a>
-        <a href="#team" data-i18n="menu.team">Команда</a>
-        <a href="#apply" data-i18n="menu.apply">Заявка</a>
-        <a href="#contact" data-i18n="menu.contact">Контакты</a>
-      </div>
-
-      <div style="display:flex;align-items:center;gap:10px;">
-        <select id="lang" style="padding:6px;border-radius:6px;border:1px solid var(--muted);font-weight:600;">
-          <option value="ru">RU</option>
-          <option value="en">EN</option>
-          <option value="kz">KZ</option>
-        </select>
-        <a class="cta" href="#apply" data-i18n="cta">Стать ментором</a>
-      </div>
+  <div class="nav">
+    <div class="logo">
+      <div style="background:var(--primary);color:white;padding:6px 10px;border-radius:8px;font-weight:800;">B</div>
+      <div>Billova</div>
     </div>
-  </header>
+    <div class="menu">
+      <a href="#about" data-i18n="about">О проекте</a>
+      <a href="#team" data-i18n="team">Команда</a>
+      <a href="#apply" data-i18n="apply">Заявка</a>
+      <a href="#contact" data-i18n="contact">Контакты</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <select id="language-switcher">
+        <option value="ru">RU</option>
+        <option value="en">EN</option>
+        <option value="kz">KZ</option>
+      </select>
+      <button id="theme-toggle" class="small" style="background:var(--primary-2);color:#fff;font-weight:700;border:none;cursor:pointer;padding:10px 16px;border-radius:10px;">🌙</button>
+      <a class="cta" href="#apply" data-i18n="becomeMentor">Стать ментором</a>
+    </div>
+  </div>
+</header>
+
 
   <main>
     <section class="hero" id="home">
@@ -214,5 +254,21 @@
     document.getElementById("lang").value = savedLang;
     setLanguage(savedLang);
   </script>
+  <script>
+  // === ТЁМНАЯ ТЕМА ===
+  const themeToggle = document.getElementById('theme-toggle');
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark');
+    themeToggle.textContent = '☀️';
+  }
+
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    const isDark = document.body.classList.contains('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    themeToggle.textContent = isDark ? '☀️' : '🌙';
+  });
+</script>
 </body>
 </html>
