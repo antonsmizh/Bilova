@@ -8,14 +8,13 @@
 const SHEET_ID = 'REPLACE_SHEET_ID'; // <-- заменишь своим ID
 const SHEET_NAME = 'mentors';
 
-/* ========== TRANSLATIONS ========== */
 const TRANSLATIONS = {
   ru: {
     "menu.about":"О нас","menu.team":"Менторы","menu.apply":"Стать ментором",
     "hero.title":"Billova — менторская платформа студентов",
     "hero.lead":"Мы связываем студентов и менторов: портфолио и быстрый контакт.",
     "about.title":"О проекте","about.text":"Billova — простая и удобная площадка, где студенты могут найти ментора по предмету.",
-    "about.f1":"Карточки менторов с фото, классом и предметом","about.f2":"Добавление менторов через таблицу (Google Sheets)","about.f3":"Поддержка RU / KZ / EN",
+    "about.f1":"","about.f2":"","about.f3":"",
     "how.title":"Как это работает","how.step1":"Добавляем ментора в таблицу — он появляется на сайте.","how.step2":"Студент связывается с ментором в Telegram.","how.step3":"Заполни форму, если хочешь стать ментором.",
     "team.title":"Наши менторы","team.lead":"Выбери ментора и свяжись с ним напрямую через Telegram.",
     "apply.title":"Стать ментором","apply.lead":"Заполни короткую форму — имя, класс, предмет, фото и достижения.",
@@ -27,7 +26,7 @@ const TRANSLATIONS = {
     "menu.about":"Біз туралы","menu.team":"Менторлар","menu.apply":"Ментор болу",
     "hero.title":"Billova — студенттерге арналған менторинг","hero.lead":"Студенттер мен менторларды байланыстырамыз: портфолио және тез байланыс.",
     "about.title":"Жоба туралы","about.text":"Billova — студенттерге ментор табуға арналған қарапайым платформа.",
-    "about.f1":"Менторлардың фотосымен профильдері","about.f2":"Менторларды кесте арқылы қосу (Google Sheets)","about.f3":"RU / KZ / EN қолдау",
+    "about.f1":"","about.f2":"","about.f3":"",
     "how.title":"Қалай жұмыс істейді","how.step1":"Менторды кестеге қосу — сайтқа шығады.","how.step2":"Студент Telegram арқылы байланысады.","how.step3":"Ментор болу үшін форманы толтыру.",
     "team.title":"Менторларымыз","team.lead":"Менторды таңдап, Telegram арқылы байланысуға болады.",
     "apply.title":"Ментор болу","apply.lead":"Қысқа форманы толтыр — аты, сынып, пән, фото және жетістіктер.",
@@ -39,7 +38,7 @@ const TRANSLATIONS = {
     "menu.about":"About","menu.team":"Mentors","menu.apply":"Become a mentor",
     "hero.title":"Billova — peer-to-peer mentoring platform","hero.lead":"We connect students and mentors: portfolios and quick contact.",
     "about.title":"About","about.text":"Billova is a simple platform for students to find mentors by subject.",
-    "about.f1":"Mentor cards with photo, class and subject","about.f2":"Adding mentors via spreadsheet (Google Sheets)","about.f3":"Supports RU / KZ / EN",
+    "about.f1":"","about.f2":"","about.f3":"",
     "how.title":"How it works","how.step1":"Add a mentor to the sheet — they appear on the site.","how.step2":"Student contacts the mentor via Telegram.","how.step3":"Fill the form to become a mentor.",
     "team.title":"Our mentors","team.lead":"Choose a mentor and contact them via Telegram.",
     "apply.title":"Become a mentor","apply.lead":"Fill a short form — name, class, subject, photo and achievements.",
@@ -209,3 +208,4 @@ document.addEventListener('DOMContentLoaded', () => {
     mentorFormBtn.href = mentorFormBtn.dataset.formUrl;
   }
 });
+
